@@ -30,7 +30,7 @@ type Config struct {
 func LoadConfig() Config {
 	c := Config{
 		APIKey:   os.Getenv("GEMINI_API_KEY"),
-		Model:    envOr("GEMINI_MODEL", "gemini-2.5-flash"),
+		Model:    envOr("GEMINI_MODEL", "gemini-3.6-flash"),
 		Endpoint: envOr("GEMINI_ENDPOINT", "https://generativelanguage.googleapis.com/v1beta"),
 		Timeout:  time.Duration(envInt("LLM_TIMEOUT_MS", 12000)) * time.Millisecond,
 	}
