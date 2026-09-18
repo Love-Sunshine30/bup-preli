@@ -8,11 +8,19 @@ import (
 	"net/http"
 	"os"
 	"time"
+
+	"github.com/joho/godotenv"
 )
 
 var interp *Interpreter
 
 func main() {
+	// Load .env file into os environment
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+
 	cfg := LoadConfig()
 	if cfg.APIKey == "" {
 		log.Println("WARNING: GEMINI_API_KEY is not set; the service will run on the rule-based fallback only")
@@ -23,7 +31,7 @@ func main() {
 	mux.HandleFunc("/health", healthHandler)
 	mux.HandleFunc("/optimize-energy", optimizeHandler)
 
-	port := envOr("PORT", "8080")
+	port := envOr("PORT", "5050")
 	srv := &http.Server{
 		Addr:              ":" + port,
 		Handler:           recoverMW(mux),
