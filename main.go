@@ -16,10 +16,7 @@ var interp *Interpreter
 
 func main() {
 	// Load .env file into os environment
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
+	godotenv.Load()
 
 	cfg := LoadConfig()
 	if cfg.APIKey == "" {
